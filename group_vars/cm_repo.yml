@@ -1,0 +1,7 @@
+---
+#local_repo: false
+#baseurl: "http://archive.cloudera.com/cm5/redhat/{{ ansible_distribution_major_version }}/x86_64/cm/5/"
+#cm_dwonload_link: "https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/5/RPMS/x86_64/"
+cm_rpm_src_dir:
+# Do not change until necessary
+cm_rpm_dest_dir: /var/www/html/cloudera/cm5/latest/
