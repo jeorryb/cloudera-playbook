@@ -9,7 +9,7 @@
 
 - name: Download Java RPM
   get_url:
-    url: "{{ jdk_dwonload_link }}"
+    url: "{{ jdk_download_link }}"
     dest: "{{ role_path }}/files"
     headers: "Cookie:oraclelicense=accept-securebackup-cookie"
   when: stat_result.stat.exists == False
