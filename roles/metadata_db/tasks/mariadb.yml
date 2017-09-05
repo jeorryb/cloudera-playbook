@@ -1,5 +1,5 @@
 ---
-- include_vars: ../../../group_vars/db_server.yml
+- include_vars: ../../../group_vars/db_server
 - name: Install MariaDB packages
   yum: name={{ item }} state=installed
   with_items:
