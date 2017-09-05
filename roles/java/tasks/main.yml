@@ -12,7 +12,7 @@
   
 - name: Download Java RPM
   get_url:
-    url="{{ jdk_dwonload_link }}"
+    url="{{ jdk_download_link }}"
     dest="{{ src_java_path }}"
     headers="Cookie:oraclelicense=accept-securebackup-cookie"
   when: (ansible_distribution|lower == "redhat") or (ansible_distribution|lower == "centos") and (external_java) and (stat_result.stat.exists == False)
