@@ -23,16 +23,16 @@
   delegate_to: 127.0.0.1
 
 # Use  below command to get list of files as recursive is not aviaalbe in get_url
-#   wget -O - "{{ cm_dwonload_link }}" | grep rpm | cut -d\> -f 7 | sed -e 's!</a!!g'|sort -u
+#   wget -O - "{{ cm_download_link }}" | grep rpm | cut -d\> -f 7 | sed -e 's!</a!!g'|sort -u
 - name: list CM RPMS from remote URL
-  shell: wget -qO - "{{ cm_dwonload_link }}" | grep rpm | cut -d\> -f 7 | sed -e 's!</a!!g'|sort -u
+  shell: wget -qO - "{{ cm_download_link }}" | grep rpm | cut -d\> -f 7 | sed -e 's!</a!!g'|sort -u
   register: cm_files_list
   when: cm_files.matched == 0
   delegate_to: 127.0.0.1
 
 - name: Download CM RPMs
   get_url:
-    url: "{{ cm_dwonload_link }}{{ item }}"
+    url: "{{ cm_download_link }}{{ item }}"
     dest: "{{ role_path }}/files/"
   with_items: "{{ cm_files_list.stdout_lines }}"
   when: cm_files.matched == 0

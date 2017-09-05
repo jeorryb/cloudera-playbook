@@ -114,7 +114,7 @@ one has to change below file for Customization.
     ```
     external_java: true
     # Always use otn-pub link instead of otn link as otn link required login
-    jdk_dwonload_link: "http://download.oracle.com/otn-pub/java/jdk/8u141-b15/336fa29ff2bb4ef291e347e091f7f4a7/jdk-8u141-linux-x64.rpm"
+    jdk_download_link: "http://download.oracle.com/otn-pub/java/jdk/8u141-b15/336fa29ff2bb4ef291e347e091f7f4a7/jdk-8u141-linux-x64.rpm"
     ```
 
 4. To Create Local Cloudera Manager Repository
@@ -142,7 +142,7 @@ ansible-playbook -i cm_test_hosts site.yml -e "{'local_repo': 'false', 'database
 # ---------------------------- cm repo related variables ------------------
 local_repo: false
 baseurl: "http://archive.cloudera.com/cm5/redhat/{{ ansible_distribution_major_version }}/x86_64/cm/5/"
-cm_dwonload_link: "https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/5/RPMS/x86_64/"
+cm_download_link: "https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/5/RPMS/x86_64/"
 
 
 # --------------------------- Metadata DB variables -----------------------
@@ -168,7 +168,7 @@ checkpoint_completion_target: 0.9
 #Install external Java if no internet connection or you want to use custom java
 external_java: true
 # Always use otn-pub link instead of otn link as otn link required login
-jdk_dwonload_link: "http://download.oracle.com/otn-pub/java/jdk/8u141-b15/336fa29ff2bb4ef291e347e091f7f4a7/jdk-8u141-linux-x64.rpm"
+jdk_download_link: "http://download.oracle.com/otn-pub/java/jdk/8u141-b15/336fa29ff2bb4ef291e347e091f7f4a7/jdk-8u141-linux-x64.rpm"
 
 
 # ------------------------ scm related variables ---------------------------
