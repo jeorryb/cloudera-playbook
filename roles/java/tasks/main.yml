@@ -1,5 +1,5 @@
 ---
-- include_vars: ../../../group_vars/java
+- include_vars: ../../../group_vars/java.yml
 
 # Check Java rpm exist in SRC location.
 
