@@ -1,5 +1,0 @@
----
-
-src_java_path:
-#dont change dest java path until necessary
-dest_java_path: /tmp/jdk/
