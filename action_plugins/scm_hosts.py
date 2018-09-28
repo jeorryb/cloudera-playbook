@@ -15,8 +15,9 @@
 # limitations under the License.
 
 from ansible.plugins.action import ActionBase
-from cm_api.api_client import ApiException
-from cm_api.api_client import ApiResource
+import cm_client
+from cm_client.rest import ApiException
+
 
 try:
     from __main__ import display
@@ -44,13 +45,14 @@ class ActionModule(ActionBase):
             scm_port = task_vars["hostvars"][scm_host]["scm_port"]
             scm_user = task_vars["hostvars"][scm_host]["scm_default_user"]
             scm_pass = task_vars["hostvars"][scm_host]["scm_default_pass"]
+
         except KeyError as e:
             result['failed'] = True
             result['msg'] = e.message
             return result
 
-        api = self.get_api_handle(scm_host, scm_port, scm_user, scm_pass)
-        scm_host_list = api.get_all_hosts()
+        api = self.get_api_handle(scm_host, str(scm_port), scm_user, scm_pass)
+        scm_host_list = api.read_hosts().items
         display.vv("Retrieved %d host(s) from SCM" % len(scm_host_list))
 
         if len(scm_host_list) == 0:
@@ -65,17 +67,17 @@ class ActionModule(ActionBase):
                 try:
                     if scm_host.hostname == task_vars["hostvars"][host]["inventory_hostname"]:
                         found_host = True
-                    elif scm_host.ipAddress == task_vars["hostvars"][host]["inventory_hostname"]:
+                    elif scm_host.ip_address == task_vars["hostvars"][host]["inventory_hostname"]:
                         found_host = True
                     elif "private_ip" in task_vars["hostvars"][host]:
-                        if scm_host.ipAddress == task_vars["hostvars"][host]["private_ip"]:
+                        if scm_host.ip_address == task_vars["hostvars"][host]["private_ip"]:
                             found_host = True
 
                     if found_host:
-                        host_ids[host] = scm_host.hostId
+                        host_ids[host] = scm_host.host_id
                         host_names[host] = scm_host.hostname
                         display.vv("Inventory host '%s', SCM hostId: '%s', SCM hostname: '%s'"
-                                   % (host, scm_host.hostId, scm_host.hostname))
+                                   % (host, scm_host.host_id, scm_host.hostname))
                         break
                 except KeyError as e:
                     display.vv("Key '%s' not defined for inventory host '%s'" % (e.message, host))
@@ -93,19 +95,23 @@ class ActionModule(ActionBase):
         return result
 
     @staticmethod
-    def get_api_handle(host, port='7180', user='admin', passwd='admin', tls=False):
+    def get_api_handle(cmserver, port='7180', user='admin', passwd='admin', api_version='v30'):
         """
         Get a handle to the CM API client
-        :param host: Hostname of the Cloudera Manager Server (CMS)
+        :param cmserver: Hostname of the Cloudera Manager Server (CMS)
         :param port: Port of the server
         :param user: SCM username
         :param passwd: SCM password
         :param tls: Whether to use TLS
         :return: Resource object referring to the root
         """
+        cm_client.configuration.username = user
+        cm_client.configuration.password = passwd
+        api_url = 'http://' + cmserver + ':' + port + '/api/' + api_version
+        api_client = cm_client.ApiClient(api_url)
         api = None
         try:
-            api = ApiResource(host, port, user, passwd, tls)
+            api = cm_client.HostsResourceApi(api_client)
         except ApiException:
             pass
         return api
