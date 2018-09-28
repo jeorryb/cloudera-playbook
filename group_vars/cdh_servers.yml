@@ -3,8 +3,8 @@
 db_hostname: "{{ hostvars[groups['db_server'][0]]['inventory_hostname'] }}"
 scm_hostname: "{{ hostvars[groups['scm_server'][0]]['inventory_hostname'] }}"
 
-cdh_version: 5.8.3
-cluster_display_name: cluster_1
+cdh_version: 6.0.0
+cluster_display_name: lockbox
 
 cdh_services:
   - type: hdfs
