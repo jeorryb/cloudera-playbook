@@ -1,40 +1,37 @@
 # Note for AWS: 'Public DNS' name is too long for ansible_host, use 'Public IP' (https://github.com/ansible/ansible/issues/11536)
 
 [scm_server]
-<host>        license_file=/path/to/cloudera_license.txt
+lbtest1.n4mlab.com     license_file=/path/to/cloudera_license.txt
 
 [db_server]
-<host>
+lbtest2.n4mlab.com
 
 [krb5_server]
-<host>        default_realm=CLOUDERA.COM
+
+[gateway_servers]
 
 [utility_servers:children]
 scm_server
 db_server
-krb5_server
 
-[gateway_servers]
-<host>        host_template=HostTemplate-Gateway role_ref_names=HDFS-HTTPFS-1
 
 [master_servers]
-<host>        host_template=HostTemplate-Master1
-<host>        host_template=HostTemplate-Master2
-<host>        host_template=HostTemplate-Master3
+lbtest1.n4mlab.com host_template=HostTemplate-Master1
+lbtest2.n4mlab.com host_template=HostTemplate-Master2
+lbtest3.n4mlab.com host_template=HostTemplate-Master3
 
 [worker_servers]
-<host>
-<host>
-<host>
+lbtest4.n4mlab.com
+lbtest5.n4mlab.com
 
 [worker_servers:vars]
 host_template=HostTemplate-Workers
 
+
 [cdh_servers:children]
 utility_servers
-gateway_servers
 master_servers
 worker_servers
 
 [all:vars]
-ansible_user=ec2-user
+ansible_user=root
