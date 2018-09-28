@@ -1,8 +1,8 @@
 ---
 # ---------------------------- cm repo related variables ------------------
 local_repo: false
-baseurl: "http://archive.cloudera.com/cm5/redhat/{{ ansible_distribution_major_version }}/x86_64/cm/5/"
-cm_download_link: "https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/5/RPMS/x86_64/"
+baseurl: "https://archive.cloudera.com/cm6/6.0.0/redhat7/yum/"
+cm_download_link: "https://archive.cloudera.com/cm6/6.0.0/redhat7/yum/RPMS/x86_64/"
 
 
 # --------------------------- Metadata DB variables -----------------------
@@ -10,9 +10,9 @@ cm_download_link: "https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/5/RPMS/x8
 database_type: mysql
 # Possible values true, false
 mysql_replication: false
-mysql_root_password: changeme
+mysql_root_password: )Okm9ijn
 mysql_replication_user: repl
-mysql_replication_password: changeme
+mysql_replication_password: )Okm9ijn
 
 # PostgreSQl related configuration Parameters
 # For more info visit https://www.cloudera.com/documentation/enterprise/5-5-x/topics/cm_ig_extrnl_pstgrs.html
