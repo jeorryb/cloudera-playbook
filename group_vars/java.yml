@@ -1,5 +1,5 @@
 ---
 
-src_java_path:
+src_java_path: "{{ role_path }}/files/jdk-8u141-linux-x64.rpm"
 #dont change dest java path until necessary
 dest_java_path: /tmp/jdk/
